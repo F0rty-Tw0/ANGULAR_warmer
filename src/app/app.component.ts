@@ -16,6 +16,7 @@ export class AppComponent {
 			this.currentItem = item;
 		});
 	}
+	
 
 	startNewSearch() {
 		this.itemService.changeSelectedItem(null);

@@ -1,57 +1,47 @@
 <!-- Search form -->
-<form class="form-inline d-flex justify-content-center md-form form-sm mt-5 animated fadeInDown">
-    <fa-icon [icon]="faSearch"></fa-icon>
-    <input class="form-control ml-2 w-75 mb-3" 
-    type="text" placeholder="Search for a Name" 
-    [(ngModel)]="search" name="Search"
-    (input)="search$.next(search)">       
-</form>
+<div class="container">   
+    <form (keydown.enter)="showDiv.current = true; showDiv.next = false;" class="form-inline d-flex justify-content-center md-form form-sm mt-5 animated fadeInDown">
+        <input class="form-control ml-2 w-75 mb-3" 
+        type="text" placeholder="Search for a Name" 
+        [(ngModel)]="search" name="Search"
+        (input)="search$.next(search)">          
+    </form>
+</div>
 
-    
-<div>
-    <div *ngIf="showDiv.next">
-       <item-preview *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"        
-       [item]="item"
-       [index]="i">  </item-preview>  
-       <button (click)="goToPage('Cart')" class="col-sm-3 btn btn-success btn-lg float-right">View Cart</button>   
-       <pagination-controls *ngIf="searchResults.length > 0 " id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page = $event"></pagination-controls>      
-    </div>
+<div *ngIf="showDiv.current" class="col-12 preview_container animated fadeIn" >
+    <h2 *ngIf="searchResults.length > 0 " class="pl-5 pt-4 mb-4" >Item List</h2>
+    <item-preview *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"        
+    [item]="item"
+    [index]="i">  </item-preview>  
+    <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true" class="btn btn-secondary btn-lg col-4 m-2 mt-4 float-right animated fadeInUp">View Cart</button>   
+    <div class="mt-4 justify-content-center"> 
+        <pagination-controls class="my-pagination" *ngIf="searchResults.length > 0 " id="listing_pagination" maxSize="5"  previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls> 
+    </div>     
+</div>
 
 <div class="container">
-    <div class="row">
-        <div class="col-md-4">
-            <div class="btn-group">
-                <div class="btn btn-dark"
-                    (click)="showDiv.previous = !showDiv.previous;showDiv.current = false;showDiv.next = false">
-                    Previous
+    <div *ngIf="showDiv.next" class="col-12 preview_container animated fadeInUp">
+        <div class="row" >            
+            <h2 class="pl-5 pt-4 mb-4">Shopping Cart</h2>           
+                <div class="col-12" >                    
+                    <div class=" item-preview_row justify-content-center" >
+                        <div *ngIf="cartItems.length === 0" class="alert alert-info ">Your Cart is Empty.</div>       
+                            <div class="row px-5">
+                                <div *ngIf="cartItems.length > 0" class="col-12 pb-1">                                                    
+                                    <div class="p-2 mt-2 font-weight-bold text-sm-left item-preview_item" *ngFor="let item of cartItems">
+                                        {{item.title}}  
+                                        <span class="col-xs-2" >                                
+                                            <button type="button" class="btn btn-secondary btn-sm float-right">DELETE</button>   
+                                        </span>                                                                          
+                                    </div>
+                                </div>
+                            </div>
+                        </div>   
+                    </div> 
+                </div> 
+                <div class="row pt-4 ml-4">            
+                    <button (click)="goToPage('/'); showDiv.current = true; showDiv.next = false" class="btn btn-secondary btn-lg col-4 mb-4 float-left animated fadeInUp">Go Back</button>           
                 </div>
-                <div class="btn btn-outline-secondary"
-                    (click)="showDiv.current = !showDiv.current;showDiv.previous = false;showDiv.next = false">
-                    Today
-                </div>
-                <div class="btn btn-dark" (click)="showDiv.next = !showDiv.next;showDiv.previous = false;showDiv.current = false">
-                    Next
-                </div>
-            </div>
-        </div>
-    </div>
-
-        <div *ngIf="showDiv.previous"><div class="container">
-            <div *ngIf="cartItems.length === 0" class="alert alert-info">Your Cart is Empty.</div>       
-            <ul *ngIf="cartItems.length > 0" class="list-group">
-                <li class="list-group-item" *ngFor="let item of cartItems">
-                    <app-cart-item [cartItem]="item"></app-cart-item>
-                </li>
-            </ul>    
-        </div> 
-
-        
-        <div *ngIf="showDiv.current">Current week data</div>
-    </div>
-</div>   
-    <h3 
-    *ngIf="!fetching && searchResults.length === 0
-     && search.length > 0">No Results found for {{search}}</h3>
-  
-
+    </div>   
+        <h3 *ngIf="!fetching && searchResults.length === 0 && search.length > 0">No Results found for {{search}}</h3>
 </div>

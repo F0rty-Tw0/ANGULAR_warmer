@@ -29,6 +29,8 @@
     "animate.css": "^3.7.2",
     "bootstrap": "^4.4.0",
     "express": "^4.17.1",
+    "mongoose": "^5.9.12",
+    "ngx-bootstrap": "^5.6.1",
     "ngx-pagination": "^5.0.0",
     "rxjs": "~6.5.4",
     "rxjs-compat": "^6.5.5",

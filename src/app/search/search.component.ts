@@ -6,6 +6,7 @@ import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { MessengerService } from '../services/messenger.service';
 
+
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 @Component({
@@ -22,6 +23,7 @@ export class SearchComponent implements OnInit {
 	page: number = 1;
 	faSearch = faSearch;
 	search: string = '';
+
 
 	constructor(private itemService: ItemService, private router: Router, private msg: MessengerService) {}
 
@@ -56,7 +58,7 @@ export class SearchComponent implements OnInit {
 	}
 	showDiv = {
 		previous : false,
-		current : false,
+		current : true,
 		next : false
 	  }
 

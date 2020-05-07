@@ -1,21 +1,26 @@
 import { Injectable } from '@angular/core';
-import { Subject } from 'rxjs'
+import { Subject } from 'rxjs';
 
 @Injectable({
-  providedIn: 'root'
+	providedIn: 'root'
 })
 export class MessengerService {
+	subject = new Subject();
+
+	constructor() {}
   
-  subject = new Subject()
+	sendItem(item) {
+    this.subject.next(item); 
+		localStorage.setItem('ordered', JSON.stringify(item));
+		if (localStorage.getItem('ordered') === null) {
+			item = [];
+		} else {
+      item = JSON.parse(localStorage.getItem('ordered'));           
+    } 
+	}
 
-  constructor() { } 
-
-  sendItem(item){
-    this.subject.next(item)
-  }
-
-  getItem(){
-    return this.subject.asObservable()
+	getItem() {
+		return this.subject.asObservable();
   }
 
 }
