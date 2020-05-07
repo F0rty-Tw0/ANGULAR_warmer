@@ -45,4 +45,4 @@ testem.log
 Thumbs.db
 
 #Keys
-./app/config/api.ts
+/src/app/config/api.ts
