@@ -1,0 +1,16 @@
+<div class="row animated fadeInDown"  style="background-color: red;" [ngStyle]="animationDelay()">
+    <div class="container">
+        <div class="get-quote">
+            <div class="row">
+                <div class="col-9 col-lg-10">
+                <p (click)="setCurrentItem(item)">{{item.title}}</p>
+                </div>
+                <div class="col-3 col-lg-2">
+                    <button type="button" class="btn btn-secondary btn-sm active pull-right" 
+                    (click)="handleAddToCart()">ADD TO CART</button>
+                </div>
+            </div>
+        </div>
+    </div>        
+</div>
+

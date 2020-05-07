@@ -1,0 +1,14 @@
+<div class="card flex-row special-card">      
+    <div class="card-body px-2">
+        <h4 class="card-title animated fadeInLeft">{{item.title}}</h4>
+        <div class="card-subtitle  animated fadeInLeft">{{item.release_date}}</div>
+        <p class="card-text mt-2 animated fadeInLeft">{{ item.overview }}</p>            
+        <div (click)="startNewSearch.emit()" class="col">
+        <a class="btn btn-secondary active">Back</a>  
+        </div>  
+    </div>
+    
+    <div class="col-sm-8">
+        <img [src]="item.posterUrl" [alt]="item.title" style="max-height:750px;"class="animated fadeInRight img-thumbnail img-fluid">
+    </div>   
+</div>

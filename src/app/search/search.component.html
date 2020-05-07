@@ -1,0 +1,57 @@
+<!-- Search form -->
+<form class="form-inline d-flex justify-content-center md-form form-sm mt-5 animated fadeInDown">
+    <fa-icon [icon]="faSearch"></fa-icon>
+    <input class="form-control ml-2 w-75 mb-3" 
+    type="text" placeholder="Search for a Name" 
+    [(ngModel)]="search" name="Search"
+    (input)="search$.next(search)">       
+</form>
+
+    
+<div>
+    <div *ngIf="showDiv.next">
+       <item-preview *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"        
+       [item]="item"
+       [index]="i">  </item-preview>  
+       <button (click)="goToPage('Cart')" class="col-sm-3 btn btn-success btn-lg float-right">View Cart</button>   
+       <pagination-controls *ngIf="searchResults.length > 0 " id="listing_pagination" maxSize="5" directionLinks="true" (pageChange)="page = $event"></pagination-controls>      
+    </div>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-4">
+            <div class="btn-group">
+                <div class="btn btn-dark"
+                    (click)="showDiv.previous = !showDiv.previous;showDiv.current = false;showDiv.next = false">
+                    Previous
+                </div>
+                <div class="btn btn-outline-secondary"
+                    (click)="showDiv.current = !showDiv.current;showDiv.previous = false;showDiv.next = false">
+                    Today
+                </div>
+                <div class="btn btn-dark" (click)="showDiv.next = !showDiv.next;showDiv.previous = false;showDiv.current = false">
+                    Next
+                </div>
+            </div>
+        </div>
+    </div>
+
+        <div *ngIf="showDiv.previous"><div class="container">
+            <div *ngIf="cartItems.length === 0" class="alert alert-info">Your Cart is Empty.</div>       
+            <ul *ngIf="cartItems.length > 0" class="list-group">
+                <li class="list-group-item" *ngFor="let item of cartItems">
+                    <app-cart-item [cartItem]="item"></app-cart-item>
+                </li>
+            </ul>    
+        </div> 
+
+        
+        <div *ngIf="showDiv.current">Current week data</div>
+    </div>
+</div>   
+    <h3 
+    *ngIf="!fetching && searchResults.length === 0
+     && search.length > 0">No Results found for {{search}}</h3>
+  
+
+</div>
