@@ -14,15 +14,16 @@ import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule, Routes } from '@angular/router';
 
 @NgModule({
-	declarations: [
-		AppComponent,
-		DisplayItemComponent,
-		SearchComponent,
-		ItemPreviewComponent,
-		FooterComponent,
-		
+	declarations: [ AppComponent, DisplayItemComponent, SearchComponent, ItemPreviewComponent, FooterComponent ],
+	imports: [
+		BrowserModule,
+		NgbModule,
+		FontAwesomeModule,
+		FormsModule,
+		HttpClientModule,
+		NgxPaginationModule,
+		RouterModule.forRoot([ { path: 'Cart', component: SearchComponent } ])
 	],
-	imports: [ BrowserModule, NgbModule, FontAwesomeModule, FormsModule, HttpClientModule, NgxPaginationModule, RouterModule.forRoot([{path: 'Cart', component: SearchComponent}]) ],
 	providers: [ ItemService ],
 	bootstrap: [ AppComponent ]
 })

@@ -8,7 +8,6 @@ import { Item } from '../../models/Items';
 })
 export class DisplayItemComponent implements OnInit {
 	@Output() startNewSearch = new EventEmitter();
-	
 
 	@Input() item: Item;
 	constructor() {}

@@ -1,8 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { Item } from '../../models/Items';
 import { ItemService } from '../../services/item.service';
-import { MessengerService } from '../../services/messenger.service'
-
+import { MessengerService } from '../../services/messenger.service';
 
 @Component({
 	selector: 'item-preview',
@@ -21,10 +20,10 @@ export class ItemPreviewComponent implements OnInit {
 	}
 
 	animationDelay = () => ({
-		'animation-delay': `${this.index*.1}s`
+		'animation-delay': `${this.index * 0.1}s`
 	});
 
 	handleAddToCart() {
-		this.msg.sendItem(this.item)
+		this.msg.sendItem(this.item);
 	}
 }
