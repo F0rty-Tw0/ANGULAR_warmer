@@ -13,6 +13,7 @@ import 'rxjs/add/operator/debounceTime';
 	styles: []
 })
 export class SearchComponent implements OnInit {
+	item: Item = {};
 	cartItems = [];
 	searchResults: Item[] = [];
 	search$: Subject<string> = new Subject<string>();
@@ -28,7 +29,6 @@ export class SearchComponent implements OnInit {
 		this.msg.getItem().subscribe((item: Item) => {
 			this.addItemToCart(item);
 		});
-
 		this.search$
 			.debounceTime(500)
 			.map((query) => {
@@ -37,6 +37,7 @@ export class SearchComponent implements OnInit {
 			})
 			.subscribe(this.searchQuery.bind(this));
 	}
+
 	goToPage(pageName: string): void {
 		this.router.navigate([ `${pageName}` ]);
 	}
@@ -59,6 +60,15 @@ export class SearchComponent implements OnInit {
 		next: false
 	};
 
+	removeItemFromCart(title) {
+		for (var i = 0; i < this.cartItems.length; i++) {
+			if (this.cartItems[i]['title'] === title) {
+				this.cartItems.splice(i, 1);
+				console.log(title);
+			}
+		}
+	}
+
 	addItemToCart(item: Item) {
 		let itemExists = false;
 		for (let i in this.cartItems) {
@@ -71,7 +81,8 @@ export class SearchComponent implements OnInit {
 
 		if (!itemExists) {
 			this.cartItems.push({
-				title: item.title
+				title: item.title,
+				posterUrl: item.posterUrl
 			});
 		}
 	}

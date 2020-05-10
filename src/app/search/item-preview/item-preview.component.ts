@@ -11,6 +11,7 @@ import { MessengerService } from '../../services/messenger.service';
 export class ItemPreviewComponent implements OnInit {
 	@Input() item: Item = {};
 	@Input() index: number = 1;
+
 	constructor(private itemService: ItemService, private msg: MessengerService) {}
 
 	ngOnInit() {}

@@ -11,7 +11,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ItemService } from './services/item.service';
 import { NgxPaginationModule } from 'ngx-pagination';
-import { RouterModule, Routes } from '@angular/router';
+import { RouterModule } from '@angular/router';
 
 @NgModule({
 	declarations: [ AppComponent, DisplayItemComponent, SearchComponent, ItemPreviewComponent, FooterComponent ],

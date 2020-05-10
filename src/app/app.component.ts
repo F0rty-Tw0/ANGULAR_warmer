@@ -1,4 +1,4 @@
-import { Component, ɵConsole } from '@angular/core';
+import { Component } from '@angular/core';
 import { Item } from './models/Items';
 import { ItemService } from './services/item.service';
 

@@ -2,12 +2,13 @@
     <div class="col-12">
             <div class="row item-preview_row justify-content-center">
                 <div class="col-6 item-preview_item" >
-                <p class="p-2 mt-2 font-weight-bold" (click)="setCurrentItem(item)">{{item.title}}</p>
+                <p class="mt-2 font-weight-bold"><img class="img-fluid item-preview_poster mr-3" src="{{item.posterUrl}}"> <span (click)="setCurrentItem(item)">{{item.title}}</span></p>
                 </div>
                 <div class="col-4 item-preview_button-area" >
                     <button  type="button" class="btn p-2 mt-3 float-right item-preview_add-to-cart-button purple_button" 
                     (click)="handleAddToCart()">ADD TO CART</button>                
                 </div>
             </div>
-        </div>
+        </div>     
+
 </div>      

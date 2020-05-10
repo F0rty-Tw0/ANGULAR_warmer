@@ -10,6 +10,7 @@ export class Cart {
     
     constructor (id: number, item: Item){
         this.id = id;
-        this.title = item.title
+		this.title = item.title;
+		this.posterUrl = item.posterUrl;
     }
 }
