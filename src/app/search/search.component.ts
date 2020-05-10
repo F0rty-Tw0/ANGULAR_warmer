@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { MessengerService } from '../services/messenger.service';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
+import mediumZoom from 'medium-zoom';
 @Component({
 	selector: 'search-item',
 	templateUrl: './search.component.html',
@@ -24,7 +25,10 @@ export class SearchComponent implements OnInit {
 	search: string = '';
 
 	constructor(private itemService: ItemService, private router: Router, private msg: MessengerService) {}
-
+	zoom() {
+		const zoom = mediumZoom('.item-preview_poster', { background: 'rgba(41, 41, 41, 0.5)', margin: 24 });
+		addEventListener('click', () => zoom.close());
+	}
 	ngOnInit(): void {
 		this.msg.getItem().subscribe((item: Item) => {
 			this.addItemToCart(item);
@@ -64,7 +68,6 @@ export class SearchComponent implements OnInit {
 		for (var i = 0; i < this.cartItems.length; i++) {
 			if (this.cartItems[i]['title'] === title) {
 				this.cartItems.splice(i, 1);
-				console.log(title);
 			}
 		}
 	}

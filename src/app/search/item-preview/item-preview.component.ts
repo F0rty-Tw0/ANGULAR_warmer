@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { Item } from '../../models/Items';
 import { ItemService } from '../../services/item.service';
 import { MessengerService } from '../../services/messenger.service';
+import mediumZoom from 'medium-zoom';
 
 @Component({
 	selector: 'item-preview',
@@ -26,5 +27,9 @@ export class ItemPreviewComponent implements OnInit {
 
 	handleAddToCart() {
 		this.msg.sendItem(this.item);
+	}
+	zoom() {
+		const zoom = mediumZoom('.item-preview_poster', { background: 'rgba(41, 41, 41, 0.5)', margin: 24 });
+		addEventListener('click', () => zoom.close());
 	}
 }

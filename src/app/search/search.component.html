@@ -1,7 +1,7 @@
 
 <div class="container">  
     <form (keydown.enter)="showDiv.current = true; showDiv.next = false;" class="form-inline d-flex justify-content-center md-form form-sm animated fadeInDown">
-        <h4 class="text-center mt-5 pt-5">Search for a movie Name</h4> 
+        <h4 class="text-center mt-md-5 mt-2 pt-md-5 ">Search for a movie Name</h4> 
         <input class="text-capitalize form-control w-75 mb-3 mt-3 " 
         type="text" placeholder="Search" 
         [(ngModel)]="search" name="Search"
@@ -10,7 +10,7 @@
     <h3 class="text-center" *ngIf="!fetching && searchResults.length === 0 && search.length > 0">No Results found for {{search}}</h3>
 </div>
 
-<div *ngIf="showDiv.current" class="col-12 preview_container animated fadeIn" >
+<div *ngIf="showDiv.current" class="col-12 preview_container animated fadeIn" >  
     <h4 *ngIf="searchResults.length > 0 " class="pl-sm-5 pt-4 mb-4" >Item List - {{searchResults.length}} movies</h4>
     <item-preview *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"        
     [item]="item"
@@ -31,7 +31,7 @@
                         <div *ngIf="cartItems.length > 0" class="col-12">                                                    
                             <div class="col-12 cart-preview_item" *ngFor="let item of cartItems">
                                <p class="text-sm-left font-weight-bold cart-preview_item-text d-inline-block">
-                                   <img class="item-preview_poster mr-3 mt-2" src="{{item.posterUrl}}">{{item.title}}</p>  
+                                   <img (click)="zoom()"class="item-preview_poster mr-3 mt-md-2" src="{{item.posterUrl}}">{{item.title}}</p>  
                                     <span class="">                              
                                        <button (click)="removeItemFromCart(item.title)" type="button" class="btn float-right cart-preview_delete-button mt-2">DELETE</button>   
                                 </span>                                                                          
