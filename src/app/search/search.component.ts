@@ -32,6 +32,7 @@ export class SearchComponent implements OnInit {
 		private msg: MessengerService,
 		private _flashMessagesService: FlashMessagesService
 	) {}
+
 	zoom() {
 		const zoom = mediumZoom('.item-preview_poster', { background: 'rgba(41, 41, 41, 0.5)', margin: 24 });
 		addEventListener('click', () => zoom.close());

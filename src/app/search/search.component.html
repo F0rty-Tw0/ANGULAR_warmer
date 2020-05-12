@@ -22,7 +22,7 @@
     <item-preview
         *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"
         [item]="item" [index]="i"> </item-preview>
-    <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true"
+    <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true;"
         class="btn col-md-4 mb-2 mt-3 float-right animated fadeIn view-cart_item-button purple_button">View
         Cart</button>
     <div class="mt-4">
