@@ -5,9 +5,11 @@ import { ItemService } from '../services/item.service';
 import { Subject } from 'rxjs/Subject';
 import { Router } from '@angular/router';
 import { MessengerService } from '../services/messenger.service';
+import { FlashMessagesService } from 'angular2-flash-messages';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
 import mediumZoom from 'medium-zoom';
+
 @Component({
 	selector: 'search-item',
 	templateUrl: './search.component.html',
@@ -24,7 +26,12 @@ export class SearchComponent implements OnInit {
 	faSearch = faSearch;
 	search: string = '';
 
-	constructor(private itemService: ItemService, private router: Router, private msg: MessengerService) {}
+	constructor(
+		private itemService: ItemService,
+		private router: Router,
+		private msg: MessengerService,
+		private _flashMessagesService: FlashMessagesService
+	) {}
 	zoom() {
 		const zoom = mediumZoom('.item-preview_poster', { background: 'rgba(41, 41, 41, 0.5)', margin: 24 });
 		addEventListener('click', () => zoom.close());
@@ -76,7 +83,10 @@ export class SearchComponent implements OnInit {
 		let itemExists = false;
 		for (let i in this.cartItems) {
 			if (this.cartItems[i].title === item.title) {
-				console.log('you cannot add items of same name');
+				this._flashMessagesService.show('You cannot add ' + this.cartItems[i].title + ' more than one time!', {
+					cssClass: 'alert-danger animated fadeIn',
+					timeout: 2000
+				});
 				itemExists = true;
 				break;
 			}
@@ -86,6 +96,11 @@ export class SearchComponent implements OnInit {
 			this.cartItems.push({
 				title: item.title,
 				posterUrl: item.posterUrl
+			});
+
+			this._flashMessagesService.show('You added ' + item.title + ' to your cart.', {
+				cssClass: 'alert-success animated fadeIn',
+				timeout: 2000
 			});
 		}
 	}

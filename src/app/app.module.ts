@@ -12,6 +12,7 @@ import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 import { ItemService } from './services/item.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
+import { FlashMessagesModule } from 'angular2-flash-messages';
 
 @NgModule({
 	declarations: [ AppComponent, DisplayItemComponent, SearchComponent, ItemPreviewComponent, FooterComponent ],
@@ -22,7 +23,8 @@ import { RouterModule } from '@angular/router';
 		FormsModule,
 		HttpClientModule,
 		NgxPaginationModule,
-		RouterModule.forRoot([ { path: 'Cart', component: SearchComponent } ])
+		RouterModule.forRoot([ { path: 'Cart', component: SearchComponent } ]),
+		FlashMessagesModule.forRoot()
 	],
 	providers: [ ItemService ],
 	bootstrap: [ AppComponent ]

@@ -1,10 +1,8 @@
 <main>
-  <div class="container" >
-    <display-item *ngIf="currentItem" (startNewSearch)="startNewSearch()" [item]="currentItem"></display-item> 
+  <div class="container">
+    <display-item *ngIf="currentItem" (startNewSearch)="startNewSearch()" [item]="currentItem"></display-item>
     <search-item *ngIf="!currentItem"></search-item>
   </div>
 </main>
 
 <app-footer></app-footer>
-
-

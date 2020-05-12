@@ -1,47 +1,61 @@
+<div class="container ">
+    <div class="top-message container text-center d-flex justify-content-center">
+        <div class="alert w-75">
+            <flash-messages></flash-messages>
+        </div>
 
-<div class="container">  
-    <form (keydown.enter)="showDiv.current = true; showDiv.next = false;" class="form-inline d-flex justify-content-center md-form form-sm animated fadeInDown">
-        <h4 class="text-center mt-md-5 mt-2 pt-md-5 ">Search for a movie Name</h4> 
-        <input class="text-capitalize form-control w-75 mb-3 mt-3 " 
-        type="text" placeholder="Search" 
-        [(ngModel)]="search" name="Search"
-        (input)="search$.next(search)">          
+    </div>
+
+    <form (keydown.enter)="showDiv.current = true; showDiv.next = false;"
+        class="form-inline d-flex justify-content-center md-form form-sm animated fadeInDown">
+        <h4 class="text-center mt-md-5 mt-2 pt-md-5 search-text">Search for a movie Name</h4>
+        <input class="text-capitalize form-control w-75 mb-3 mt-3 " type="text" placeholder="Search"
+            [(ngModel)]="search" name="Search" (input)="search$.next(search)">
     </form>
-    <h3 class="text-center" *ngIf="!fetching && searchResults.length === 0 && search.length > 0">No Results found for {{search}}</h3>
+
+    <h3 class="text-center" *ngIf="!fetching && searchResults.length === 0 && search.length > 0">No Results found for
+        {{search}}</h3>
 </div>
 
-<div *ngIf="showDiv.current" class="col-12 preview_container animated fadeIn" >  
-    <h4 *ngIf="searchResults.length > 0 " class="pl-sm-5 pt-4 mb-4" >Item List - {{searchResults.length}} movies</h4>
-    <item-preview *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"        
-    [item]="item"
-    [index]="i">  </item-preview>  
-    <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true" class="btn col-md-4 mb-2 mt-3 float-right animated fadeIn view-cart_item-button purple_button">View Cart</button>   
-    <div class="mt-4"> 
-        <pagination-controls class="my-pagination" *ngIf="searchResults.length > 0 " id="listing_pagination" maxSize="5"  previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls> 
-    </div>     
+<div *ngIf="showDiv.current" class="col-12 preview_container animated fadeIn">
+    <h4 *ngIf="searchResults.length > 0 " class="pl-sm-5 pt-4 mb-4">Item List - {{searchResults.length}} movies </h4>
+    <item-preview
+        *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"
+        [item]="item" [index]="i"> </item-preview>
+    <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true"
+        class="btn col-md-4 mb-2 mt-3 float-right animated fadeIn view-cart_item-button purple_button">View
+        Cart</button>
+    <div class="mt-4">
+        <pagination-controls class="my-pagination" *ngIf="searchResults.length > 0 " id="listing_pagination" maxSize="5"
+            previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
+    </div>
 </div>
 
 
 <div *ngIf="showDiv.next" class="col-12 preview_container animated fadeIn">
-        <div class="row" >   
-            <div class="container">     
-            <h4 class="pl-sm-5 pt-4 mb-4">Shopping Cart - {{cartItems.length}} items</h4>           
-                <div class="col-12" >                    
-                    <div class=" mx-md-5 row item-preview_row" >
-                        <div *ngIf="cartItems.length > 0" class="col-12">                                                    
-                            <div class="col-12 cart-preview_item" *ngFor="let item of cartItems">
-                               <p class="text-sm-left font-weight-bold cart-preview_item-text d-inline-block">
-                                   <img (click)="zoom()"class="item-preview_poster mr-3 mt-md-2" src="{{item.posterUrl}}">{{item.title}}</p>  
-                                    <span class="">                              
-                                       <button (click)="removeItemFromCart(item.title)" type="button" class="btn float-right cart-preview_delete-button mt-2">DELETE</button>   
-                                </span>                                                                          
-                        </div>  
+    <div class="row">
+        <div class="container">
+            <h4 class="pl-sm-5 pt-4 mb-4">Shopping Cart - {{cartItems.length}} items</h4>
+            <div class="col-12">
+                <div class=" mx-md-5 row item-preview_row">
+                    <div *ngIf="cartItems.length > 0" class="col-12">
+                        <div class="col-12 cart-preview_item" *ngFor="let item of cartItems">
+                            <p class="text-sm-left font-weight-bold cart-preview_item-text d-inline-block">
+                                <img (click)="zoom()" class="item-preview_poster mr-3 mt-md-2"
+                                    src="{{item.posterUrl}}">{{item.title}}</p>
+                            <span class="">
+                                <button (click)="removeItemFromCart(item.title)" type="button"
+                                    class="btn float-right cart-preview_delete-button mt-2">DELETE</button>
+                            </span>
+                        </div>
                     </div>
-                </div> 
-            </div> 
-            <div class="pt-4 ml-md-4">            
-                    <button (click)="goToPage('/'); showDiv.current = true; showDiv.next = false" class="btn col-md-4 mb-4 float-left animated fadeIn go-back_cart-button purple_button">Go Back</button>           
+                </div>
             </div>
-        </div>     
-    </div>    
+            <div class="pt-4 ml-md-4">
+                <button (click)="goToPage('/'); showDiv.current = true; showDiv.next = false"
+                    class="btn col-md-4 mb-4 float-left animated fadeIn go-back_cart-button purple_button">Go
+                    Back</button>
+            </div>
+        </div>
+    </div>
 </div>

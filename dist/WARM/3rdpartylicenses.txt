@@ -167,6 +167,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 THE SOFTWARE.
 
 
+angular2-flash-messages
+MIT
+
 animate.css
 MIT
 The MIT License (MIT)
