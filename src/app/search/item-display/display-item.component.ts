@@ -7,6 +7,7 @@ import { Item } from '../../models/Items';
 	styles: []
 })
 export class DisplayItemComponent implements OnInit {
+	//Event emitter of a new search, from nullifing the currentItem
 	@Output() startNewSearch = new EventEmitter();
 
 	@Input() item: Item;

@@ -1,37 +1,41 @@
 <div class="container ">
+    <!-- Alert messages container -->
     <div class="top-message container text-center d-flex justify-content-center">
         <div class="alert w-75">
             <flash-messages></flash-messages>
         </div>
-
     </div>
-
+    <!-- Form with an input for search purpose -->
     <form (keydown.enter)="showDiv.current = true; showDiv.next = false;"
         class="form-inline d-flex justify-content-center md-form form-sm animated fadeInDown">
         <h4 class="text-center mt-md-5 mt-2 pt-md-5 search-text">Search for a movie Name</h4>
         <input class="text-capitalize form-control w-75 mb-3 mt-3 " type="text" placeholder="Search"
             [(ngModel)]="search" name="Search" (input)="search$.next(search)">
     </form>
-
+    <!-- A header showing that there are no resuluts for the current searched item if there is none -->
     <h3 class="text-center" *ngIf="!fetching && searchResults.length === 0 && search.length > 0">No Results found for
         {{search}}</h3>
 </div>
 
 <div *ngIf="showDiv.current" class="col-12 preview_container animated fadeIn">
+    <!-- The ammount of movies found, currently set to max 20 per API request from the themoviedb -->
     <h4 *ngIf="searchResults.length > 0 " class="pl-sm-5 pt-4 mb-4">Item List - {{searchResults.length}} movies </h4>
+    <!-- Item preview component load and loop through the results and attacking the totalRecords for pagination -->
     <item-preview
         *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"
         [item]="item" [index]="i"> </item-preview>
+    <!-- View cart button with a pseudo routing, appearing only when there are items in cart -->  
     <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true;"
         class="btn col-md-4 mb-2 mt-3 float-right animated fadeIn view-cart_item-button purple_button">View
         Cart</button>
+    <!-- Pagination Controls -->
     <div class="mt-4">
         <pagination-controls class="my-pagination" *ngIf="searchResults.length > 0 " id="listing_pagination" maxSize="5"
             previousLabel="" nextLabel="" (pageChange)="page = $event"></pagination-controls>
     </div>
 </div>
 
-
+<!-- Cart page load, just had to add it this way to show the potential of hiding and showing the pages ( Should be moved to a separate component when the localStorage retriving is done - Need help here) -->
 <div *ngIf="showDiv.next" class="col-12 preview_container animated fadeIn">
     <div class="row">
         <div class="container">

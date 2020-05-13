@@ -33,27 +33,32 @@ export class SearchComponent implements OnInit {
 		private _flashMessagesService: FlashMessagesService
 	) {}
 
+	//Again zoom, but this time for the cart part ( TODO - move it to separate component)
 	zoom() {
 		const zoom = mediumZoom('.item-preview_poster', { background: 'rgba(41, 41, 41, 0.5)', margin: 24 });
 		addEventListener('click', () => zoom.close());
 	}
+	//Subscribing with the messenger the selected item and moving it to cartItem
 	ngOnInit(): void {
 		this.msg.getItem().subscribe((item: Item) => {
 			this.addItemToCart(item);
 		});
 		this.search$
+			//Delay effect for the search input
 			.debounceTime(500)
 			.map((query) => {
 				this.fetching = true;
 				return query;
 			})
+			//After the delay, subribing it
 			.subscribe(this.searchQuery.bind(this));
 	}
 
+	//Routing navigation
 	goToPage(pageName: string): void {
 		this.router.navigate([ `${pageName}` ]);
 	}
-
+	//Fetching the results
 	searchQuery(query: string) {
 		if (query.length > 0) {
 			this.itemService.searchItem(query).subscribe((results) => {
@@ -66,13 +71,14 @@ export class SearchComponent implements OnInit {
 			this.searchResults = [];
 		}
 	}
+	//Hiding and showing pages boolean
 	showDiv = {
-		previous: false,
 		current: true,
 		next: false
 	};
 
-	removeItemFromCart(title) {
+	//Remove from Cart function, currently based on title (TODO add id's when localStorage will work)
+	removeItemFromCart(title: string) {
 		for (var i = 0; i < this.cartItems.length; i++) {
 			if (this.cartItems[i]['title'] === title) {
 				this.cartItems.splice(i, 1);
@@ -80,9 +86,11 @@ export class SearchComponent implements OnInit {
 		}
 	}
 
+	//Add to cart function, with flash messages on error and success
 	addItemToCart(item: Item) {
 		let itemExists = false;
 		for (let i in this.cartItems) {
+			//Checking if the item is already in the cart
 			if (this.cartItems[i].title === item.title) {
 				this._flashMessagesService.show('You cannot add ' + this.cartItems[i].title + ' more than one time!', {
 					cssClass: 'alert-danger animated fadeIn',
@@ -93,6 +101,7 @@ export class SearchComponent implements OnInit {
 			}
 		}
 
+		//TODO - add id and push it to localStorage 
 		if (!itemExists) {
 			this.cartItems.push({
 				title: item.title,

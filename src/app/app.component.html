@@ -1,6 +1,8 @@
 <main>
   <div class="container">
+    <!-- If there is an item selected, open the display-item component -->
     <display-item *ngIf="currentItem" (startNewSearch)="startNewSearch()" [item]="currentItem"></display-item>
+    <!-- If there is no items selected, open the search-item component -->
     <search-item *ngIf="!currentItem"></search-item>
   </div>
 </main>

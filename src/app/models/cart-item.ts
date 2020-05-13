@@ -1,4 +1,5 @@
 import { Item } from './items'
+//A model for the cart items (tried to make it work with the localStorage)
 export class Cart {
 	poster_path?: string | null;
 	original_title?: string;
