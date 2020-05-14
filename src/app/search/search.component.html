@@ -24,9 +24,10 @@
     <item-preview
         *ngFor="let item of searchResults | paginate: {id:'listing_pagination', itemsPerPage: 5, currentPage: page, totalItems: totalRecords}; let i = index"
         [item]="item" [index]="i"> </item-preview>
-    <!-- View cart button with a pseudo routing, appearing only when there are items in cart -->  
-    <button *ngIf="cartItems.length > 0" (click)="goToPage('Cart'); showDiv.current = false; showDiv.next = true;"
-        class="btn col-md-4 mb-2 mt-3 float-right animated fadeIn view-cart_item-button purple_button">View
+    <!-- View cart button with a pseudo routing, appearing only when there are items in cart -->
+    <button *ngIf="cartItems.length > 0" (click)="goToPage('cart'); showDiv.current = false; showDiv.next = true;"
+        class="btn col-md-4 mb-2 mt-3 float-right animated fadeIn view-cart_item-button purple_button"
+        routerLink="/cart" routerLinkActive="active">View
         Cart</button>
     <!-- Pagination Controls -->
     <div class="mt-4">
@@ -35,31 +36,6 @@
     </div>
 </div>
 
-<!-- Cart page load, just had to add it this way to show the potential of hiding and showing the pages ( Should be moved to a separate component when the localStorage retriving is done - Need help here) -->
-<div *ngIf="showDiv.next" class="col-12 preview_container animated fadeIn">
-    <div class="row">
-        <div class="container">
-            <h4 class="pl-sm-5 pt-4 mb-4">Shopping Cart - {{cartItems.length}} items</h4>
-            <div class="col-12">
-                <div class=" mx-md-5 row item-preview_row">
-                    <div *ngIf="cartItems.length > 0" class="col-12">
-                        <div class="col-12 cart-preview_item" *ngFor="let item of cartItems">
-                            <p class="text-sm-left font-weight-bold cart-preview_item-text d-inline-block">
-                                <img (click)="zoom()" class="item-preview_poster mr-3 mt-md-2"
-                                    src="{{item.posterUrl}}">{{item.title}}</p>
-                            <span class="">
-                                <button (click)="removeItemFromCart(item.title)" type="button"
-                                    class="btn float-right cart-preview_delete-button mt-2">DELETE</button>
-                            </span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="pt-4 ml-md-4">
-                <button (click)="goToPage('/'); showDiv.current = true; showDiv.next = false"
-                    class="btn col-md-4 mb-4 float-left animated fadeIn go-back_cart-button purple_button">Go
-                    Back</button>
-            </div>
-        </div>
-    </div>
-</div>
+<!-- Cart page load (Passing the data from cartItems and showDiv) -->
+<app-cart [cartItem]='cartItems' [showDivCart]='showDiv'>
+</app-cart>

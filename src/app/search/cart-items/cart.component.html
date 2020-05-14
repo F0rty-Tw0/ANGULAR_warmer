@@ -1,0 +1,28 @@
+<!-- Cart page load -->
+<div *ngIf="showDivCart.next" class="col-12 preview_container animated fadeIn">
+    <div class="row">
+        <div class="container">
+            <h4 class="pl-sm-5 pt-4 mb-4">Shopping Cart - {{cartItem.length}} items</h4>
+            <div class="col-12">
+                <div class=" mx-md-5 row item-preview_row">
+                    <div *ngIf="cartItem.length > 0" class="col-12">
+                        <div class="col-12 cart-preview_item" *ngFor="let item of cartItem">
+                            <p class="text-sm-left font-weight-bold cart-preview_item-text d-inline-block">
+                                <img (click)="zoom()" class="item-preview_poster mr-3 mt-md-2"
+                                    src="{{item.posterUrl}}">{{item.title}}</p>
+                            <span class="">
+                                <button (click)="removeItemFromCart(item.title)" type="button"
+                                    class="btn float-right cart-preview_delete-button mt-2">DELETE</button>
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="pt-4 ml-md-4">
+                <button (click)="goToPage('/'); showDivCart.current = true; showDivCart.next = false"
+                    class="btn col-md-4 mb-4 float-left animated fadeIn go-back_cart-button purple_button">Go
+                    Back</button>
+            </div>
+        </div>
+    </div>
+</div>

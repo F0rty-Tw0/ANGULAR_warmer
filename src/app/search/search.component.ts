@@ -8,7 +8,6 @@ import { MessengerService } from '../services/messenger.service';
 import { FlashMessagesService } from 'angular2-flash-messages';
 import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/debounceTime';
-import mediumZoom from 'medium-zoom';
 
 @Component({
 	selector: 'search-item',
@@ -33,11 +32,6 @@ export class SearchComponent implements OnInit {
 		private _flashMessagesService: FlashMessagesService
 	) {}
 
-	//Again zoom, but this time for the cart part ( TODO - move it to separate component)
-	zoom() {
-		const zoom = mediumZoom('.item-preview_poster', { background: 'rgba(41, 41, 41, 0.5)', margin: 24 });
-		addEventListener('click', () => zoom.close());
-	}
 	//Subscribing with the messenger the selected item and moving it to cartItem
 	ngOnInit(): void {
 		this.msg.getItem().subscribe((item: Item) => {
@@ -53,7 +47,6 @@ export class SearchComponent implements OnInit {
 			//After the delay, subribing it
 			.subscribe(this.searchQuery.bind(this));
 	}
-
 	//Routing navigation
 	goToPage(pageName: string): void {
 		this.router.navigate([ `${pageName}` ]);
@@ -77,15 +70,6 @@ export class SearchComponent implements OnInit {
 		next: false
 	};
 
-	//Remove from Cart function, currently based on title (TODO add id's when localStorage will work)
-	removeItemFromCart(title: string) {
-		for (var i = 0; i < this.cartItems.length; i++) {
-			if (this.cartItems[i]['title'] === title) {
-				this.cartItems.splice(i, 1);
-			}
-		}
-	}
-
 	//Add to cart function, with flash messages on error and success
 	addItemToCart(item: Item) {
 		let itemExists = false;
@@ -101,7 +85,7 @@ export class SearchComponent implements OnInit {
 			}
 		}
 
-		//TODO - add id and push it to localStorage 
+		//TODO - add id and push it to localStorage
 		if (!itemExists) {
 			this.cartItems.push({
 				title: item.title,

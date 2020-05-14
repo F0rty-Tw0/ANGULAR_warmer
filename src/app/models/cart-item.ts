@@ -1,6 +1,6 @@
 import { Item } from './items'
 //A model for the cart items (tried to make it work with the localStorage)
-export class Cart {
+export class CartItems {
 	poster_path?: string | null;
 	original_title?: string;
 	overview?: string;

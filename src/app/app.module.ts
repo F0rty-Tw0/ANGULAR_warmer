@@ -13,9 +13,18 @@ import { ItemService } from './services/item.service';
 import { NgxPaginationModule } from 'ngx-pagination';
 import { RouterModule } from '@angular/router';
 import { FlashMessagesModule } from 'angular2-flash-messages';
+import { CartComponent } from './search/cart-items/cart.component';
+import { AppRoutingModule } from './app-routing.module';
 
 @NgModule({
-	declarations: [ AppComponent, DisplayItemComponent, SearchComponent, ItemPreviewComponent, FooterComponent ],
+	declarations: [
+		AppComponent,
+		DisplayItemComponent,
+		SearchComponent,
+		ItemPreviewComponent,
+		FooterComponent,
+		CartComponent
+	],
 	imports: [
 		BrowserModule,
 		NgbModule,
@@ -24,7 +33,8 @@ import { FlashMessagesModule } from 'angular2-flash-messages';
 		HttpClientModule,
 		NgxPaginationModule,
 		RouterModule.forRoot([ { path: 'Cart', component: SearchComponent } ]),
-		FlashMessagesModule.forRoot()
+		FlashMessagesModule.forRoot(),
+		AppRoutingModule
 	],
 	providers: [ ItemService ],
 	bootstrap: [ AppComponent ]
